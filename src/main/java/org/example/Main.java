@@ -250,7 +250,7 @@ class SelectUserFrame implements ActionListener {
     }
 }
 
-class MenuForShelter extends AddPetFrame implements ActionListener{
+class MenuForShelter extends DeletePetFrame implements ActionListener{
 
 
     public JButton option1 = new JButton("Add pet");
@@ -297,45 +297,67 @@ class MenuForShelter extends AddPetFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == option1) {
-           addPet.setVisible(true);
-
-               try {
-                   Connection conn = DriverManager.getConnection(url, username, password);
-                   System.out.println("Connected to the PostgreSQL server successfully.");
-                   String insertQuery = "INSERT INTO public.\"myTable\"(\n" +
-                           "\tnume, rasa, varsta, sex, greutate, temperament)\n" +
-                           "\tVALUES (?, ?, ?, ?, ?, ?)";
-                   PreparedStatement pstmt = conn.prepareStatement(insertQuery);
-
-
-                   pstmt.setString(1, txtNameField.getText());
-                   pstmt.setString(2, txtBreedField.getText());
-                   pstmt.setString(3, txtAgeField.getText());
-                   pstmt.setString(4, txtSexField.getText());
-                   pstmt.setString(5, txtWeightField.getText());
-                   pstmt.setString(6, txtTemperamentField.getText());
-                   ResultSet rs;
-
-                   if(e.getSource()==add)
-                       rs = pstmt.executeQuery();
+        if (e.getSource() == option1) {
+            addPet.setVisible(true);
+        } else
+            if (e.getSource() == add) {
+                try {
+                Connection conn = DriverManager.getConnection(url, username, password);
+                System.out.println("Connected to the PostgreSQL server successfully.");
+                String insertQuery = "INSERT INTO public.\"myTable\"(\n" +
+                        "\tnume, rasa, varsta, sex, greutate, temperament)\n" +
+                        "\tVALUES (?, ?, ?, ?, ?, ?)";
+                PreparedStatement pstmt = conn.prepareStatement(insertQuery);
 
 
+                pstmt.setString(1, txtNameField.getText());
+                pstmt.setString(2, txtBreedField.getText());
+                pstmt.setString(3, txtAgeField.getText());
+                pstmt.setString(4, txtSexField.getText());
+                pstmt.setString(5, txtWeightField.getText());
+                pstmt.setString(6, txtTemperamentField.getText());
 
-                   int rowsInserted = pstmt.executeUpdate();
-                   if (rowsInserted > 0) {
-                       System.out.println("A new pet has been inserted successfully!");
-                   }
+                int rowsInserted = pstmt.executeUpdate();
+                if (rowsInserted > 0) {
+                    System.out.println("A new pet has been inserted successfully!");
+                    JOptionPane.showMessageDialog(null, "A new pet has been inserted successfully!");
+                    addPet.setVisible(false);
+                }
 
-                   conn.close();
-               } catch (SQLException e1) {
-                   System.out.println("Connection failed :" + e1.getMessage());
-               }
-           }
+                conn.close();
+            } catch (SQLException e1) {
+                System.out.println("Connection failed :" + e1.getMessage());
+            }
+        }
 
         if (e.getSource() == option2) {
-
+            deletePet.setVisible(true);
         }
+        else
+            if(e.getSource() == deleteButton) {
+                try {
+                    Connection conn = DriverManager.getConnection(url, username, password);
+                    System.out.println("Connected to the PostgreSQL server successfully.");
+                    String deleteQuery = "DELETE FROM public.\"myTable\"\n" +
+                            "\tWHERE id=?";
+
+                    //Integer.valueOf(idField.getText());
+                    PreparedStatement pstmt = conn.prepareStatement(deleteQuery);
+                    pstmt.setInt(1,Integer.valueOf(idField.getText()));
+
+
+                    int rowsDeleted = pstmt.executeUpdate();
+                    if (rowsDeleted > 0) {
+                        System.out.println("The pet has been deleted successfully!");
+                        JOptionPane.showMessageDialog(null, "The pet that you wanted to delete has been deleted successfully!");
+                        deletePet.setVisible(false);
+                    }
+
+
+                }catch (SQLException e1){
+                    System.out.println("Connection failed :" + e1.getMessage());
+                }
+            }
         if (e.getSource() == option3) {
 
         }
@@ -345,6 +367,66 @@ class MenuForShelter extends AddPetFrame implements ActionListener{
     }
 
 
+}
+
+class DeletePetFrame extends AddPetFrame implements ActionListener{
+
+    public JFrame deletePet = new JFrame("DeletePetFrame");
+
+    JButton deleteButton = new JButton("Delete pet");
+    JLabel idLabel = new JLabel("Type the PET ID you want to delete:");
+    JTextField idField = new JTextField();
+
+    public void DeletePetId(JLabel idLabel) {
+       idLabel.setBounds(50, 100, 400, 200);
+       idLabel.setFont(new Font("Times New Roman", Font.CENTER_BASELINE, 20));
+
+    }
+
+    public DeletePetFrame(){
+        deletePet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        deletePet.setSize(500, 500);
+        deletePet.getContentPane().setBackground(Color.pink);
+
+        int frameWidth = 500;
+        int frameHeight = 500;
+
+        int labelWidth = 70;
+        int fieldWidth = 200;
+        int buttonWidth = 100;
+
+        int labelHeight = 20;
+        int fieldHeight = 20;
+        int buttonHeight = 30;
+
+        int horizontalGap = 50;
+        int verticalGap = 20;
+
+        int labelX = (frameWidth - labelWidth - fieldWidth) / 2;
+        int fieldX = labelX + labelWidth + horizontalGap - 100;
+        int idLabelY = (frameHeight - (labelHeight + fieldHeight + buttonHeight)) / 2;
+        int idFieldY = idLabelY + labelHeight + verticalGap;
+        int deleteButtonY = idFieldY + fieldHeight + verticalGap;
+
+        idLabel.setBounds(labelX, idLabelY, labelWidth, labelHeight);
+        deletePet.add(idLabel);
+
+
+        idField.setBounds(fieldX, idFieldY, fieldWidth, fieldHeight);
+        deletePet.add(idField);
+
+        deleteButton.setBounds(fieldX + fieldWidth / 2 - buttonWidth / 2, deleteButtonY, buttonWidth, buttonHeight);
+        deleteButton.setBackground(Color.decode("#ffdbe0"));
+        deleteButton.addActionListener(this);
+        deletePet.add(deleteButton);
+        DeletePetId(idLabel);
+        deletePet.setLayout(null);
+
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
 
 class AddPetFrame extends JFrame implements ActionListener {

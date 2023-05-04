@@ -120,7 +120,7 @@ class FrameForAdopter extends User implements ActionListener{
 }
 class MyFrame extends User implements ActionListener{
 
-    public JFrame myFrame = new JFrame("PetShopApplication");
+    public JFrame myFrame = new JFrame("MyFrame");
 
     public JLabel shelterName=new JLabel("Shelter:");
 
@@ -182,7 +182,7 @@ class MyFrame extends User implements ActionListener{
             String username = txtUsername.getText();
             String password = txtPassword.getText();
             if ((username.equals("Carina") || username.equals("Helena")) && password.equals("Zara")) {
-                    new MenuForShelter();
+                new MenuForShelter();
                 }
             }
 
@@ -250,7 +250,7 @@ class SelectUserFrame implements ActionListener {
     }
 }
 
-class MenuForShelter extends JFrame implements ActionListener{
+class MenuForShelter extends AddPetFrame implements ActionListener{
 
 
     public JButton option1 = new JButton("Add pet");
@@ -259,7 +259,8 @@ class MenuForShelter extends JFrame implements ActionListener{
     public JButton option4 = new JButton("Exit");
 
 
-    public MenuForShelter() {
+
+    public MenuForShelter()  {
 
         setTitle("MenuForShelter");
         JPanel sidebar = new JPanel();
@@ -288,13 +289,49 @@ class MenuForShelter extends JFrame implements ActionListener{
         option4.addActionListener(this);
     }
 
+    String url = "jdbc:postgresql://localhost:5432/postgres";
+    String username = "postgres";
+    String password = "zara";
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource() == option1) {
-            AddPet addPetFrame=new AddPet();
-        }
+           addPet.setVisible(true);
+
+               try {
+                   Connection conn = DriverManager.getConnection(url, username, password);
+                   System.out.println("Connected to the PostgreSQL server successfully.");
+                   String insertQuery = "INSERT INTO public.\"myTable\"(\n" +
+                           "\tnume, rasa, varsta, sex, greutate, temperament)\n" +
+                           "\tVALUES (?, ?, ?, ?, ?, ?)";
+                   PreparedStatement pstmt = conn.prepareStatement(insertQuery);
+
+
+                   pstmt.setString(1, txtNameField.getText());
+                   pstmt.setString(2, txtBreedField.getText());
+                   pstmt.setString(3, txtAgeField.getText());
+                   pstmt.setString(4, txtSexField.getText());
+                   pstmt.setString(5, txtWeightField.getText());
+                   pstmt.setString(6, txtTemperamentField.getText());
+                   ResultSet rs;
+
+                   if(e.getSource()==add)
+                       rs = pstmt.executeQuery();
+
+
+
+                   int rowsInserted = pstmt.executeUpdate();
+                   if (rowsInserted > 0) {
+                       System.out.println("A new pet has been inserted successfully!");
+                   }
+
+                   conn.close();
+               } catch (SQLException e1) {
+                   System.out.println("Connection failed :" + e1.getMessage());
+               }
+           }
 
         if (e.getSource() == option2) {
 
@@ -310,7 +347,7 @@ class MenuForShelter extends JFrame implements ActionListener{
 
 }
 
-class AddPet {
+class AddPetFrame extends JFrame implements ActionListener {
     JLabel nameField = new JLabel("Name:");
     JTextField txtNameField = new JTextField();
     JLabel breedField = new JLabel("Breed:");
@@ -326,20 +363,15 @@ class AddPet {
     JLabel temperamentField = new JLabel("Temperament:");
     JTextField txtTemperamentField = new JTextField();
 
-    JPanel panel = new JPanel();
+    public JButton add=new JButton("Add pet");
 
-    public void CenterFields() {
+    JFrame addPet = new JFrame("AddPetFrame");
+    public AddPetFrame() {
 
-    }
-
-
-
-    public AddPet() {
-        JFrame addPet = new JFrame("AddPetFrame");
         addPet.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addPet.setSize(500, 500);
         addPet.getContentPane().setBackground(Color.pink);
-        addPet.setVisible(true);
+
 
 
         int frameWidth = 500;
@@ -368,6 +400,7 @@ class AddPet {
         int temperamentY = weightY + labelHeight + verticalGap;
 
 
+
         nameField.setBounds(labelX, nameY, labelWidth, labelHeight);
         txtNameField.setBounds(fieldX, nameY, fieldWidth, fieldHeight);
         breedField.setBounds(labelX, breedY, labelWidth, labelHeight);
@@ -380,6 +413,10 @@ class AddPet {
         txtWeightField.setBounds(fieldX, weightY, fieldWidth, fieldHeight);
         temperamentField.setBounds(labelX, temperamentY, labelWidth, labelHeight);
         txtTemperamentField.setBounds(fieldX, temperamentY, fieldWidth, fieldHeight);
+        add.setBounds(labelX, temperamentY + labelHeight + verticalGap, fieldWidth, fieldHeight);
+
+
+        addPet.getContentPane().add(add);
         addPet.getContentPane().add(nameField);
         addPet.getContentPane().add(txtNameField);
         addPet.getContentPane().add(breedField);
@@ -392,18 +429,20 @@ class AddPet {
         addPet.getContentPane().add(txtWeightField);
         addPet.getContentPane().add(temperamentField);
         addPet.getContentPane().add(txtTemperamentField);
+
         addPet.setLayout(null);
-        addPet.setVisible(true);
+        //addPet.setVisible(true);
+        add.addActionListener(this);
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
     }
 }
 public class Main {
-    public static void main(String[] args) throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/postgres";
-        String username = "postgres";
-        String password = "zara";
-        Connection conn = DriverManager.getConnection(url, username, password);
-
+    public static void main(String[] args) {//throws SQLException {
         new SelectUserFrame();
     }
 }

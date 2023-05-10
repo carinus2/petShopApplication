@@ -31,6 +31,7 @@ public class MyFrame extends User implements ActionListener {
         myFrame.getContentPane().setLayout(null);
         myFrame.setVisible(true);
         btn1.addActionListener(this);
+        btn2.addActionListener(this);
 
     }
 
@@ -70,6 +71,9 @@ public class MyFrame extends User implements ActionListener {
             if ((username.equals("Carina") || username.equals("Helena")) && password.equals("Zara")) {
                 new MenuForShelter();
             }
+        }
+        if(e.getSource() == btn2){
+            myFrame.setVisible(false);
         }
 
     }

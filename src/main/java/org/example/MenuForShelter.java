@@ -4,8 +4,11 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
 import java.sql.*;
 import java.sql.SQLException;
+
+
 public class MenuForShelter extends EditPetFrame implements ActionListener {
     public JButton option1 = new JButton("Add pet");
     public JButton option2 = new JButton("Delete pet");
@@ -31,6 +34,13 @@ public class MenuForShelter extends EditPetFrame implements ActionListener {
         option3.setBackground(Color.decode("#ffdbe0"));
         option4.setBackground(Color.decode("#ffdbe0"));
 
+        JLabel labelImage = new JLabel();
+        labelImage.setIcon(new ImageIcon("C:\\Users\\Carina\\Desktop\\PetShopApplication\\src\\main\\resources\\adoptmedog.png"));
+        Dimension size = labelImage.getPreferredSize();
+        labelImage.setBounds(50,10, size.width, size.height);
+
+
+        getContentPane().add(labelImage);
         getContentPane().add(sidebar, BorderLayout.WEST);
         getContentPane().setBackground(Color.pink);
         setSize(500, 500);
@@ -140,7 +150,7 @@ public class MenuForShelter extends EditPetFrame implements ActionListener {
         }
 
             if (e.getSource() == option4) {
-
+                setVisible(false);
             }
 
     }

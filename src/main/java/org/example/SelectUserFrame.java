@@ -24,16 +24,6 @@ public class SelectUserFrame implements ActionListener {
 
     }
 
-    ImageIcon image = new ImageIcon("adoptmedog.jpg");
-    JLabel imageLabel = new JLabel();
-
-    public void adoptMeDog() {
-        imageLabel.setIcon(image);
-        imageLabel.setBounds(180, 50, 120, 120);
-        imageLabel.setPreferredSize(new Dimension(120, 120));
-
-    }
-
     public SelectUserFrame() {
 
         selectUserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,8 +36,6 @@ public class SelectUserFrame implements ActionListener {
         selectUserFrame.getContentPane().setLayout(null);
         SelectUserText(selectUser);
         selectUserFrame.getContentPane().add(selectUser);
-        adoptMeDog();
-        selectUserFrame.getContentPane().add(imageLabel);
         btnAdmin.setBackground(Color.decode("#ffdbe0"));
         btnUser.setBackground(Color.decode("#ffdbe0"));
         btnAdmin.addActionListener(this);

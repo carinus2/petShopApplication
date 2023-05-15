@@ -6,12 +6,15 @@ import java.awt.event.*;
 import java.sql.*;
 //import java.sql.SQLException;
 public class FrameForAdopter extends User implements ActionListener {
-    public JFrame frameForAdopter =new JFrame("FrameForAdopter");
 
-    public JLabel fullName=new JLabel("Full name:");
+    public JFrame frameForAdopter = new JFrame();
 
-    public JTextField txtFullName=new JTextField();
-    public FrameForAdopter(){
+    public JLabel fullName = new JLabel("Full name:");
+
+    public JTextField txtFullName = new JTextField();
+
+    public FrameForAdopter() {
+        frameForAdopter.setTitle("FrameForAdopter");
         frameForAdopter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameForAdopter.setSize(500, 500);
         frameForAdopter.getContentPane().setBackground(Color.pink);
@@ -32,7 +35,8 @@ public class FrameForAdopter extends User implements ActionListener {
         btn1.addActionListener(this);
 
     }
-    public void loginCentered(JFrame frameForAdopter){
+
+    public void loginCentered(JFrame frameForAdopter) {
         super.loginCentered(frameForAdopter);
         int fullNameHeight = 20;
 
@@ -57,4 +61,12 @@ public class FrameForAdopter extends User implements ActionListener {
         btn2.setBounds(fieldX, buttonY, buttonWidth, buttonHeight);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btn1)
+            new MenuForAdopter();
+        if (e.getSource() == btn2) {
+
+        }
+    }
 }

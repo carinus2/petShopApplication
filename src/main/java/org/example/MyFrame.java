@@ -8,9 +8,9 @@ import java.sql.*;
 public class MyFrame extends User implements ActionListener {
     public JFrame myFrame = new JFrame("MyFrame");
 
-    public JLabel shelterName=new JLabel("Shelter:");
+    public JLabel shelterName = new JLabel("Shelter:");
 
-    public JTextField txtShelterName=new JTextField();
+    public JTextField txtShelterName = new JTextField();
 
     MyFrame() {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,23 +59,54 @@ public class MyFrame extends User implements ActionListener {
         btn1.setBounds(labelX, buttonY, buttonWidth, buttonHeight);
         btn2.setBounds(fieldX, buttonY, buttonWidth, buttonHeight);
     }
-
-
+    String url = "jdbc:postgresql://localhost:5432/postgres";
+    String username1 = "postgres";
+    String password1 = "zara";
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn1) {
-            String username = txtUsername.getText();
-            String password = txtPassword.getText();
-            if ((username.equals("Carina") || username.equals("Helena")) && password.equals("Zara")) {
-                new MenuForShelter();
-            }
-        }
-        if(e.getSource() == btn2){
-            myFrame.setVisible(false);
+          new MenuForShelter();
         }
 
+        /*
+            try {
+                Connection conn = DriverManager.getConnection(url, username1, password1);
+                System.out.println("Connected to the PostgreSQL server successfully.");
+                Statement statement = conn.createStatement();
+                String selectQuery = "SELECT username, password, phone, sheltername\n" +
+                        "\tFROM public.\"loginForShelters\"";
+
+                ResultSet result = statement.executeQuery(selectQuery);
+                boolean match = false;
+
+                    while (result.next()) {
+
+                        String username3 = result.getString("username");
+                        System.out.println(username3);
+                        String password3 = result.getString("password");
+                        System.out.println(password3);
+                        String phone = result.getString("phone");
+                        String shelterName = result.getString("sheltername");
+
+                        if (txtUsername.getText().equals(username3) && txtPassword.getText().equals(password3) && txtPhoneNumber.getText().equals(phone) && txtShelterName.getText().equals(shelterName) && e.getSource()==btn1) {
+                                new MenuForShelter();
+                        }
+                    }
+
+
+                conn.close();
+            } catch (SQLException e1) {
+                System.out.println("Connection failed :" + e1.getMessage());
+            }
+*/
+            if (e.getSource() == btn2) {
+                myFrame.setVisible(false);
+            }
+
+        }
     }
 
-}
+
+

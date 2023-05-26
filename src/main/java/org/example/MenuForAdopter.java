@@ -52,6 +52,8 @@ public class MenuForAdopter extends JFrame implements ActionListener {
         if(e.getSource() == optionA) {
             new ViewPetsFrame();
         }
-
+        if(e.getSource() == optionB) {
+            new SearchPetFrame();
+        }
     }
 }

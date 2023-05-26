@@ -33,6 +33,7 @@ public class FrameForAdopter extends User implements ActionListener {
         frameForAdopter.getContentPane().setLayout(null);
         frameForAdopter.setVisible(true);
         btn1.addActionListener(this);
+        btn2.addActionListener(this);
 
     }
 
@@ -66,7 +67,7 @@ public class FrameForAdopter extends User implements ActionListener {
         if (e.getSource() == btn1)
             new MenuForAdopter();
         if (e.getSource() == btn2) {
-
+            frameForAdopter.setVisible(false);
         }
     }
 }

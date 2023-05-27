@@ -23,7 +23,6 @@ public class Utils {
         for (int column = 1; column <= columnCount ; column++) {
                 columnNames.add(metaData.getColumnName(column));
         }
-        columnNames.add("Adopta");
         Vector<Vector<Object>> data = new Vector<>();
         while (resultSet.next()) {
             Vector<Object> row = new Vector<>();
@@ -31,12 +30,9 @@ public class Utils {
                 row.add(resultSet.getObject(columnIndex));
             }
 
-           JButton buttonAdopt = new JButton("ADOPT ME");
-
-            byte[] imageBytes = resultSet.getBytes("poza");
-            ImageIcon imageIcon = new ImageIcon(imageBytes);
-            row.add(buttonAdopt);
-            row.add(imageIcon);
+            //byte[] imageBytes = resultSet.getBytes("poza");
+            //ImageIcon imageIcon = new ImageIcon(imageBytes);
+            //row.add(imageIcon);
             data.add(row);
         }
 
@@ -45,7 +41,7 @@ public class Utils {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == columnCount) {
-                    return JButton.class; // Setează clasa coloanei de imagini ca ImageIcon
+                    return ImageIcon.class; // Setează clasa coloanei de imagini ca ImageIcon
                 }
                 return super.getColumnClass(columnIndex);
             }

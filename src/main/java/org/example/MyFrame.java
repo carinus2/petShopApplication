@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import java.util.Objects;
+
 //import java.sql.SQLException;
 public class MyFrame extends User implements ActionListener {
     public JFrame myFrame = new JFrame("MyFrame");
@@ -59,6 +61,7 @@ public class MyFrame extends User implements ActionListener {
         btn1.setBounds(labelX, buttonY, buttonWidth, buttonHeight);
         btn2.setBounds(fieldX, buttonY, buttonWidth, buttonHeight);
     }
+
     String url = "jdbc:postgresql://localhost:5432/postgres";
     String username1 = "postgres";
     String password1 = "zara";
@@ -66,11 +69,10 @@ public class MyFrame extends User implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btn1 && (txtUsername.getText().equals("Carina") || (txtUsername.getText().equals("Helena"))) && (txtPassword.getText().equals("Zara") || txtPassword.getText().equals("102938")) && (txtPhoneNumber.getText().equals("0771479637") || txtPhoneNumber.getText().equals("0743060122")) && (txtShelterName.getText().equals("Carina Shelter") || ((txtShelterName.getText().equals("Helena Shelter"))))){
-          new MenuForShelter();
-        }
+        if ((e.getSource() == btn1 && txtUsername.getText().equals("Carina") && txtPassword.getText().equals("Zara") && txtPhoneNumber.getText().equals("0771479637") && txtShelterName.getText().equals("Carina Shelter")) || (e.getSource() == btn1 && txtUsername.getText().equals("Helena") && txtPassword.getText().equals("102938") && txtPhoneNumber.getText().equals("0743060122") && txtShelterName.getText().equals("Helena Shelter")))
+            new MenuForShelter();
 
-        /*
+       /* if (e.getSource() == btn1) {
             try {
                 Connection conn = DriverManager.getConnection(url, username1, password1);
                 System.out.println("Connected to the PostgreSQL server successfully.");
@@ -81,32 +83,36 @@ public class MyFrame extends User implements ActionListener {
                 ResultSet result = statement.executeQuery(selectQuery);
                 boolean match = false;
 
-                    while (result.next()) {
+                while (result.next()) {
+                    String username3 = result.getString("username");
+                    String password3 = result.getString("password");
+                    String phone = result.getString("phone");
+                    String shelterName = result.getString("sheltername");
+                    System.out.println(txtUsername.getText());
+                    System.out.println(txtPassword.getText().equals(password3));
+                    System.out.println(txtShelterName.getText().equals(shelterName));
+                    System.out.println(Objects.equals(txtPhoneNumber.getText(), phone));
 
-                        String username3 = result.getString("username");
-                        System.out.println(username3);
-                        String password3 = result.getString("password");
-                        System.out.println(password3);
-                        String phone = result.getString("phone");
-                        String shelterName = result.getString("sheltername");
-
-                        if (txtUsername.getText().equals(username3) && txtPassword.getText().equals(password3) && txtPhoneNumber.getText().equals(phone) && txtShelterName.getText().equals(shelterName) && e.getSource()==btn1) {
-                                new MenuForShelter();
-                        }
                     }
+                }
 
 
                 conn.close();
             } catch (SQLException e1) {
                 System.out.println("Connection failed :" + e1.getMessage());
             }
-*/
+        }
+        */
+
+
+
             if (e.getSource() == btn2) {
                 myFrame.setVisible(false);
             }
 
         }
     }
+
 
 
 

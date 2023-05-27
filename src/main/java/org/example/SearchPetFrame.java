@@ -8,9 +8,11 @@ import java.sql.*;
 
 public class SearchPetFrame extends JFrame implements ActionListener{
     JFrame searchPetFrame = new JFrame("SearchPetFrame");
-    private JTextField searchable = new JTextField(30);
-    private JButton searchB = new JButton("Search");
-    private JTable result = new JTable();
+     JTextField searchable = new JTextField(30);
+    JButton searchB = new JButton("Search");
+
+    JButton exit = new JButton("Exit");
+     JTable result = new JTable();
     private JPanel panel = new JPanel();
     private JScrollPane scrollPane = new JScrollPane(result);
 
@@ -23,16 +25,20 @@ public class SearchPetFrame extends JFrame implements ActionListener{
 
         searchable.setPreferredSize(new Dimension(200, 30)); // Setează dimensiunea dorită pentru căsuța de căutare
         searchB.setPreferredSize(new Dimension(80, 30)); // Setează dimensiunea dorită pentru butonul de căutare
+        exit.setPreferredSize(new Dimension(80,30));
         scrollPane.setPreferredSize(new Dimension(400, 300)); // Setează dimensiunea dorită pentru panoul cu scroll
         result.setBackground(Color.decode("#ffdbe0"));
         scrollPane.setBackground(Color.decode("#ffdbe0"));
         panel.setBackground(Color.PINK);
         panel.add(searchable);
         panel.add(searchB);
+        panel.add(exit);
         panel.add(scrollPane);
         searchPetFrame.getContentPane().add(panel);
         searchB.setBackground(Color.decode("#ffdbe0"));
         searchB.addActionListener(this);
+        exit.setBackground(Color.decode("#ffdbe0"));
+        exit.addActionListener(this);
         searchPetFrame.setVisible(true);
 
     }
@@ -87,6 +93,8 @@ public class SearchPetFrame extends JFrame implements ActionListener{
             e1.printStackTrace();
         }
 
-
+    if(e.getSource() == exit){
+        searchPetFrame.setVisible(false);
+    }
     }
 }

@@ -13,7 +13,9 @@ public class MenuForShelter extends EditPetFrame implements ActionListener {
     public JButton option1 = new JButton("Add pet");
     public JButton option2 = new JButton("Delete pet");
     public JButton option3 = new JButton("Edit pet profile");
-    public JButton option4 = new JButton("Exit");
+
+    public JButton option4 = new JButton("View adoption requests");
+    public JButton option5 = new JButton("Exit");
 
 
     public MenuForShelter() {
@@ -28,11 +30,13 @@ public class MenuForShelter extends EditPetFrame implements ActionListener {
         sidebar.add(option2);
         sidebar.add(option3);
         sidebar.add(option4);
+        sidebar.add(option5);
 
         option1.setBackground(Color.decode("#ffdbe0"));
         option2.setBackground(Color.decode("#ffdbe0"));
         option3.setBackground(Color.decode("#ffdbe0"));
         option4.setBackground(Color.decode("#ffdbe0"));
+        option5.setBackground(Color.decode("#ffdbe0"));
 
         JLabel labelImage = new JLabel();
         labelImage.setIcon(new ImageIcon("C:\\Users\\Carina\\Desktop\\PetShopApplication\\src\\main\\resources\\adoptmedog.png"));
@@ -50,6 +54,8 @@ public class MenuForShelter extends EditPetFrame implements ActionListener {
         option2.addActionListener(this);
         option3.addActionListener(this);
         option4.addActionListener(this);
+        option5.addActionListener(this);
+
     }
 
     String url = "jdbc:postgresql://localhost:5432/postgres";
@@ -149,9 +155,12 @@ public class MenuForShelter extends EditPetFrame implements ActionListener {
             }
         }
 
-            if (e.getSource() == option4) {
+            if (e.getSource() == option5) {
                 setVisible(false);
             }
 
+            if(e.getSource() == option4){
+
+            }
     }
 }

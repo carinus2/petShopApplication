@@ -9,7 +9,7 @@ import java.sql.*;
 public class EditPetFrame extends DeletePetFrame implements ActionListener {
     public JFrame editPet = new JFrame("EditPetFrame");
     public JButton editButton=new JButton("Edit");
-    private JLabel text2=new JLabel("Enter the id & age to edit:");
+    private JLabel text2=new JLabel("Enter the id and age to edit:");
     private JLabel idLabel=new JLabel("Animal ID:");
     private JLabel ageLabel=new JLabel("Animal age:");
     public  JTextField idField=new JTextField();

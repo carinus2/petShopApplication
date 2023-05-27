@@ -66,7 +66,7 @@ public class MyFrame extends User implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btn1) {
+        if (e.getSource() == btn1 && (txtUsername.getText().equals("Carina") || (txtUsername.getText().equals("Helena"))) && (txtPassword.getText().equals("Zara") || txtPassword.getText().equals("102938")) && (txtPhoneNumber.getText().equals("0771479637") || txtPhoneNumber.getText().equals("0743060122")) && (txtShelterName.getText().equals("Carina Shelter") || ((txtShelterName.getText().equals("Helena Shelter"))))){
           new MenuForShelter();
         }
 

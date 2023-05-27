@@ -7,12 +7,14 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class SearchPetFrame extends JFrame implements ActionListener{
-   JFrame searchPetFrame = new JFrame("SearchPetFrame");
+    JFrame searchPetFrame = new JFrame("SearchPetFrame");
     private JTextField searchable = new JTextField(30);
     private JButton searchB = new JButton("Search");
     private JTable result = new JTable();
     private JPanel panel = new JPanel();
     private JScrollPane scrollPane = new JScrollPane(result);
+
+
 
     public SearchPetFrame() {
         searchPetFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

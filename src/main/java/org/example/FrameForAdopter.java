@@ -61,11 +61,45 @@ public class FrameForAdopter extends User implements ActionListener {
         btn1.setBounds(labelX, buttonY, buttonWidth, buttonHeight);
         btn2.setBounds(fieldX, buttonY, buttonWidth, buttonHeight);
     }
+    String url = "jdbc:postgresql://localhost:5432/postgres";
+    String username1 = "postgres";
+    String password1 = "zara";
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btn1)
-            new MenuForAdopter();
+        if (e.getSource() == btn1) {
+            try {
+                Connection conn = DriverManager.getConnection(url, username1, password1);
+                System.out.println("Connected to the PostgreSQL server successfully.");
+                Statement statement = conn.createStatement();
+                String selectQuery = "SELECT username, password, phone, \"fullName\"\n" +
+                        "\tFROM public.\"loginForAdopters\"";
+
+                ResultSet result = statement.executeQuery(selectQuery);
+                boolean match = false;
+
+                while (result.next()) {
+                    String userNameFromDB = result.getString("username").trim();
+                    String password3 = result.getString("password").trim();
+                    String phone = result.getString("phone").trim();
+                    String shelterName = result.getString("fullName").trim();
+                    String userNameFromUi = txtUsername.getText();
+                    String passwordFromUi = txtPassword.getText();
+                    String phoneFromUi = txtPhoneNumber.getText();
+                    String fullNameFromUi = txtFullName.getText().trim();
+
+                    if(userNameFromUi.equals(userNameFromDB) && password3.equals(passwordFromUi) && phone.equals(phoneFromUi) && shelterName.equals(fullNameFromUi))
+                        new MenuForShelter();
+
+                }
+                System.out.println(match);
+                conn.close();
+            }
+            catch(SQLException e1){
+                System.out.println("Connection failed :" + e1.getMessage());
+            }
+        }
+
         if (e.getSource() == btn2) {
             frameForAdopter.setVisible(false);
         }

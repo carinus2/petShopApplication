@@ -40,7 +40,6 @@ class MenuForShelterTest {
         // Simulăm acțiunea pentru option3 (Editare pet)
         ActionEvent event = new ActionEvent(menuForShelter.option3, ActionEvent.ACTION_PERFORMED, "");
         menuForShelter.actionPerformed(event);
-
         // Verificăm dacă fereastra de editare pet este afișată
         assertTrue(menuForShelter.editPet.isVisible());
     }

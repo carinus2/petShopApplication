@@ -69,10 +69,10 @@ public class MyFrame extends User implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ((e.getSource() == btn1 && txtUsername.getText().equals("Carina") && txtPassword.getText().equals("Zara") && txtPhoneNumber.getText().equals("0771479637") && txtShelterName.getText().equals("Carina Shelter")) || (e.getSource() == btn1 && txtUsername.getText().equals("Helena") && txtPassword.getText().equals("102938") && txtPhoneNumber.getText().equals("0743060122") && txtShelterName.getText().equals("Helena Shelter")))
-            new MenuForShelter();
+//        if ((e.getSource() == btn1 && txtUsername.getText().equals("Carina") && txtPassword.getText().equals("Zara") && txtPhoneNumber.getText().equals("0771479637") && txtShelterName.getText().equals("Carina Shelter")) || (e.getSource() == btn1 && txtUsername.getText().equals("Helena") && txtPassword.getText().equals("102938") && txtPhoneNumber.getText().equals("0743060122") && txtShelterName.getText().equals("Helena Shelter")))
+//            new MenuForShelter();
 
-       /* if (e.getSource() == btn1) {
+        if (e.getSource() == btn1) {
             try {
                 Connection conn = DriverManager.getConnection(url, username1, password1);
                 System.out.println("Connected to the PostgreSQL server successfully.");
@@ -84,34 +84,31 @@ public class MyFrame extends User implements ActionListener {
                 boolean match = false;
 
                 while (result.next()) {
-                    String username3 = result.getString("username");
-                    String password3 = result.getString("password");
-                    String phone = result.getString("phone");
-                    String shelterName = result.getString("sheltername");
-                    System.out.println(txtUsername.getText());
-                    System.out.println(txtPassword.getText().equals(password3));
-                    System.out.println(txtShelterName.getText().equals(shelterName));
-                    System.out.println(Objects.equals(txtPhoneNumber.getText(), phone));
+                    String userNameFromDB = result.getString("username").trim();
+                    String password3 = result.getString("password").trim();
+                    String phone = result.getString("phone").trim();
+                    String shelterName = result.getString("sheltername").trim();
+                    String userNameFromUi = txtUsername.getText();
+                    String passwordFromUi = txtPassword.getText();
+                    String phoneFromUi = txtPhoneNumber.getText();
+                    String shelterNameFromUi = txtShelterName.getText().trim();
 
-                    }
+                 if(userNameFromUi.equals(userNameFromDB) && password3.equals(passwordFromUi) && phone.equals(phoneFromUi) && shelterName.equals(shelterNameFromUi))
+                    new MenuForShelter();
+
                 }
-
-
-                conn.close();
-            } catch (SQLException e1) {
-                System.out.println("Connection failed :" + e1.getMessage());
+            conn.close();
+            }
+            catch(SQLException e1){
+            System.out.println("Connection failed :" + e1.getMessage());
             }
         }
-        */
-
-
-
             if (e.getSource() == btn2) {
                 myFrame.setVisible(false);
             }
 
-        }
     }
+}
 
 
 
